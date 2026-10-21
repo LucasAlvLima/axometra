@@ -8,7 +8,7 @@ export function DashboardShell({ demo, periodLabel, children, activePath = "/das
   demo: boolean;
   periodLabel: string | null;
   children: ReactNode;
-  activePath?: "/dashboard" | "/treinos" | "/alimentacao";
+  activePath?: "/dashboard" | "/treinos" | "/alimentacao" | "/sono";
   title?: string;
   description?: string;
   eyebrow?: string;

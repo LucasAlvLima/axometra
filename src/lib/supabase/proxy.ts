@@ -72,7 +72,8 @@ export async function updateSession(request: NextRequest) {
   const isProtected =
     pathname === "/dashboard" || pathname.startsWith("/dashboard/") ||
     pathname === "/treinos" || pathname.startsWith("/treinos/") ||
-    pathname === "/alimentacao" || pathname.startsWith("/alimentacao/");
+    pathname === "/alimentacao" || pathname.startsWith("/alimentacao/") ||
+    pathname === "/sono" || pathname.startsWith("/sono/");
 
   if (isProtected && !hasIdentity) {
     const loginUrl = request.nextUrl.clone();
