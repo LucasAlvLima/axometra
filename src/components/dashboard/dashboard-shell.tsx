@@ -4,15 +4,16 @@ import { LogoutButton } from "@/components/auth/logout-button";
 import { BrandLogo } from "@/components/brand/brand-logo";
 import { DashboardNavigation } from "./dashboard-navigation";
 
-export function DashboardShell({ demo, periodLabel, children, activePath = "/dashboard", title = "Meu Dashboard", description = "Seu espaço de performance está sendo preparado", eyebrow = "Visão geral", compact = false }: {
+export function DashboardShell({ demo, periodLabel, children, activePath = "/dashboard", title = "Meu Dashboard", description = "Seu espaço de performance está sendo preparado", eyebrow = "Visão geral", compact = false, modeLinks }: {
   demo: boolean;
   periodLabel: string | null;
   children: ReactNode;
-  activePath?: "/dashboard" | "/treinos" | "/alimentacao" | "/sono";
+  activePath?: "/dashboard" | "/treinos" | "/alimentacao" | "/sono" | "/medidas";
   title?: string;
   description?: string;
   eyebrow?: string;
   compact?: boolean;
+  modeLinks?: Readonly<{ personal: string; demo: string }>;
 }) {
   return (
     <div className="min-h-svh lg:grid lg:grid-cols-[240px_minmax(0,1fr)]">
@@ -45,7 +46,7 @@ export function DashboardShell({ demo, periodLabel, children, activePath = "/das
                 {demo ? compact ? <><span className="hidden sm:inline">Período ilustrativo fixo: </span>{periodLabel}<span className="hidden sm:inline">. Nenhum dado pessoal é exibido.</span></> : `Período ilustrativo fixo: ${periodLabel}. Nenhum dado pessoal é exibido.` : "Seus registros aparecerão aqui quando o acompanhamento estiver disponível."}
               </p>
             </div>
-            <a href={demo ? activePath : `${activePath}?view=demo`} className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-lg border border-border px-4 py-2 text-sm font-medium text-primary hover:bg-primary/10">
+            <a href={demo ? modeLinks?.personal ?? activePath : modeLinks?.demo ?? `${activePath}?view=demo`} className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-lg border border-border px-4 py-2 text-sm font-medium text-primary hover:bg-primary/10">
               {demo ? "Sair da demonstração" : "Ver demonstração"}
             </a>
           </div>

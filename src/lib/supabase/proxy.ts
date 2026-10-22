@@ -73,7 +73,8 @@ export async function updateSession(request: NextRequest) {
     pathname === "/dashboard" || pathname.startsWith("/dashboard/") ||
     pathname === "/treinos" || pathname.startsWith("/treinos/") ||
     pathname === "/alimentacao" || pathname.startsWith("/alimentacao/") ||
-    pathname === "/sono" || pathname.startsWith("/sono/");
+    pathname === "/sono" || pathname.startsWith("/sono/") ||
+    pathname === "/medidas" || pathname.startsWith("/medidas/");
 
   if (isProtected && !hasIdentity) {
     const loginUrl = request.nextUrl.clone();

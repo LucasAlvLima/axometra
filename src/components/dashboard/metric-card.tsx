@@ -6,7 +6,13 @@ export type PresentationMetric = Readonly<{
   detail: string;
 }>;
 
-export function MetricCard({ metric, demo, compact = false }: { metric: PresentationMetric; demo: boolean; compact?: boolean }) {
+type MetricPresentation = Readonly<{
+  context: string;
+  coverage: string;
+  notice?: string;
+}>;
+
+export function MetricCard({ metric, demo, compact = false, presentation }: { metric: PresentationMetric; demo: boolean; compact?: boolean; presentation?: MetricPresentation }) {
   // Only select a typographic scale: never infer data status or rewrite values.
   // Short values with units get prominence; prose and long values keep room.
   const prominentValue = metric.value !== null && metric.unit.length > 0 && metric.value.length <= 10;
@@ -20,7 +26,19 @@ export function MetricCard({ metric, demo, compact = false }: { metric: Presenta
         </span>
         {metric.value !== null && metric.unit && <span className="text-sm font-medium leading-relaxed text-muted">{" "}{metric.unit}</span>}
       </p>
-      <p className={`border-t border-border text-xs leading-relaxed text-muted [overflow-wrap:anywhere] ${compact ? "mt-2 pt-2 sm:mt-4 sm:pt-3" : "mt-4 pt-3"}`}>{metric.detail}</p>
+      {presentation ? (
+        <div className="mt-3 border-t border-border pt-3 text-xs leading-relaxed text-muted [overflow-wrap:anywhere]">
+          <p>{presentation.context}</p>
+          <p className="mt-1">{presentation.coverage}</p>
+          {presentation.notice && <p className="mt-2 font-medium text-foreground">{presentation.notice}</p>}
+          <details className="mt-2">
+            <summary className="min-h-11 cursor-pointer content-center rounded-md py-2 font-medium text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">Cobertura e critérios</summary>
+            <p className="pb-1 pt-2">{metric.detail}</p>
+          </details>
+        </div>
+      ) : (
+        <p className={`border-t border-border text-xs leading-relaxed text-muted [overflow-wrap:anywhere] ${compact ? "mt-2 pt-2 sm:mt-4 sm:pt-3" : "mt-4 pt-3"}`}>{metric.detail}</p>
+      )}
     </section>
   );
 }
